@@ -3,8 +3,6 @@ package no.hvl.dat110.messaging;
 
 import java.net.Socket;
 
-import no.hvl.dat110.TODO;
-
 public class MessagingClient {
 
 	// name/IP address of the messaging server
@@ -29,9 +27,14 @@ public class MessagingClient {
 		// TODO - START
 		// connect to messaging server using a TCP socket
 		// create and return a corresponding messaging connection
+		try{
+			clientSocket = new Socket(server, port);
+			connection = new MessageConnection(clientSocket);
+		} catch (Exception e){
+			System.err.println(e);
+		}
 		
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
+		
 		
 		// TODO - END
 		return connection;
