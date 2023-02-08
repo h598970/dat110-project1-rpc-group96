@@ -1,8 +1,7 @@
 package no.hvl.dat110.rpc;
 
-import java.nio.ByteBuffer;
-import java.util.Arrays;
-import no.hvl.dat110.TODO;
+import java.math.BigInteger;
+
 
 public class RPCUtils {
 	
@@ -13,10 +12,17 @@ public class RPCUtils {
 		// TODO - START
 		
 		// Encapsulate the rpcid and payload in a byte array according to the RPC message syntax / format
-		
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
-		
+		if(payload == null){
+			rpcmsg = new byte[1];
+			rpcmsg[0] = rpcid; 
+		}else if(payload.length+1 > 127){
+			throw new IllegalArgumentException("Payload er for lang.");
+		}else {
+			rpcmsg = new byte[payload.length +1];
+			rpcmsg[0] = rpcid;
+			System.arraycopy(payload, 0, rpcmsg, 1, payload.length);
+
+		}
 		// TODO - END
 		
 		return rpcmsg;
@@ -29,10 +35,8 @@ public class RPCUtils {
 		// TODO - START
 		
 		// Decapsulate the rpcid and payload in a byte array according to the RPC message syntax
-		
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
-		
+		payload = new byte[rpcmsg.length-1];
+		System.arraycopy(rpcmsg, 1, payload, 0, rpcmsg.length-1);		
 		// TODO - END
 		
 		return payload;
@@ -46,8 +50,7 @@ public class RPCUtils {
 		
 		// TODO - START 
 		
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
+		encoded = str.getBytes();
 		
 		// TODO - END
 		
@@ -61,8 +64,7 @@ public class RPCUtils {
 		
 		// TODO - START 
 		
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
+		decoded = new String(data);
 		
 		// TODO - END
 		
@@ -75,8 +77,10 @@ public class RPCUtils {
 		
 		// TODO - START 
 		
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
+		
+		encoded = new  byte[1];
+
+
 				
 		// TODO - END
 		
@@ -88,8 +92,7 @@ public class RPCUtils {
 		
 		// TODO
 		
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
+		
 		
 	}
 
@@ -122,8 +125,7 @@ public class RPCUtils {
 		
 		// TODO - START 
 		
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
+		encoded = BigInteger.valueOf(x).toByteArray();
 		
 		// TODO - END
 		
@@ -137,9 +139,10 @@ public class RPCUtils {
 		
 		// TODO - START 
 		
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
+		BigInteger i = new BigInteger(data);
 		
+		decoded = i.intValue();
+
 		// TODO - END
 		
 		return decoded;
