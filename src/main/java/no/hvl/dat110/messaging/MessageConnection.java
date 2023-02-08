@@ -6,9 +6,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-import no.hvl.dat110.TODO;
-
-
 public class MessageConnection {
 
 	private DataOutputStream outStream; // for writing bytes to the underlying TCP connection
@@ -39,8 +36,13 @@ public class MessageConnection {
 		// TODO - START
 		// encapsulate the data contained in the Message and write to the output stream
 		
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
+		data = MessageUtils.encapsulate(message);
+		try{
+			outStream.write(data);
+		}catch(IOException ex){
+			System.out.println("Error in send: " + ex.getMessage());
+			System.err.println(ex);
+		}
 			
 		// TODO - END
 
@@ -49,14 +51,15 @@ public class MessageConnection {
 	public Message receive() {
 
 		Message message = null;
-		byte[] data;
 		
 		// TODO - START
 		// read a segment from the input stream and decapsulate data into a Message
-		
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
-		
+		try{
+			message = MessageUtils.decapsulate(inStream.readNBytes(128));
+		}catch(IOException ex){
+			System.out.println("Error receive: " + ex.getMessage());
+			System.err.println(ex);
+		}		
 		// TODO - END
 		
 		return message;
