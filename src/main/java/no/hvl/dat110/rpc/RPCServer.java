@@ -2,8 +2,8 @@ package no.hvl.dat110.rpc;
 
 import java.util.HashMap;
 
-import no.hvl.dat110.TODO;
 import no.hvl.dat110.messaging.MessageConnection;
+
 import no.hvl.dat110.messaging.Message;
 import no.hvl.dat110.messaging.MessagingServer;
 
@@ -48,8 +48,14 @@ public class RPCServer {
 		   // - invoke the method
 		   // - send back the message containing RPC reply
 			
-		   if (true)
-				throw new UnsupportedOperationException(TODO.method());
+			requestmsg = connection.receive();
+			
+			rpcid = requestmsg.getData()[0];
+			RPCRemoteImpl remote = services.get(rpcid);
+
+			byte[] response = remote.invoke(RPCUtils.decapsulate(requestmsg.getData()));
+			replymsg = new Message(RPCUtils.encapsulate(rpcid, response));
+			connection.send(replymsg);
 		   
 		   // TODO - END
 
